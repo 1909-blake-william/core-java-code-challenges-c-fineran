@@ -1,8 +1,19 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class EvaluationService {
 
@@ -15,7 +26,7 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		char[] reversed = new char[string.length()];
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
+		for (int i = reversed.length - 1, j = 0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
 		return new String(reversed);
@@ -30,8 +41,21 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String[] word = phrase.split("[ -]");
+
+		Arrays.toString(word);
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < word.length; i++) {
+			sb.append(word[i].charAt(0));
+		}
+
+		String acronym = sb.toString();
+
+		System.out.println(acronym.toUpperCase());
+
+		return acronym.toUpperCase();
+
 	}
 
 	/**
@@ -84,20 +108,40 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+
+			if (sideOne == sideThree && sideOne == sideTwo && sideThree == sideTwo) {
+				return true;
+			} else {
+
+				return false;
+			}
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne <= sideTwo && sideOne >= sideTwo && sideOne <= sideThree && sideOne >= sideThree) {
+				return true;
+			} else if (sideOne == sideThree && sideOne >= sideThree && sideOne <= sideThree) {
+				return true;
+			} else if (sideTwo == sideThree && sideTwo <= sideThree && sideTwo >= sideThree) {
+				return true;
+			} else
+
+				return false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
-		}
+			if (sideOne > sideTwo && sideOne < sideTwo && sideOne < sideThree && sideOne > sideThree
+					&& sideThree > sideTwo && sideThree < sideTwo && sideThree > sideOne && sideThree < sideOne
+					&& sideTwo > sideOne && sideTwo < sideThree) {
+				return true;
+			}
 
+			else {
+
+				return false;
+			}
+
+		}
 	}
 
 	/**
@@ -116,8 +160,52 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		char[] newWord = string.toUpperCase().toCharArray();
+
+		HashMap<Character, Integer> scrabId = new HashMap<Character, Integer>();
+		scrabId.put('A', 1);
+		scrabId.put('B', 3);
+		scrabId.put('C', 3);
+		scrabId.put('D', 2);
+		scrabId.put('E', 1);
+		scrabId.put('F', 4);
+		scrabId.put('G', 2);
+		scrabId.put('H', 4);
+		scrabId.put('I', 1);
+		scrabId.put('J', 8);
+		scrabId.put('K', 5);
+		scrabId.put('L', 1);
+		scrabId.put('M', 3);
+		scrabId.put('N', 1);
+		scrabId.put('O', 1);
+		scrabId.put('P', 3);
+		scrabId.put('Q', 10);
+		scrabId.put('R', 1);
+		scrabId.put('S', 1);
+		scrabId.put('T', 1);
+		scrabId.put('U', 1);
+		scrabId.put('V', 4);
+		scrabId.put('W', 4);
+		scrabId.put('X', 8);
+		scrabId.put('Y', 4);
+		scrabId.put('Z', 10);
+
+		int result = 0;
+
+		for (int i = 0; i < newWord.length; i++) {
+
+			for (Map.Entry<Character, Integer> letter : scrabId.entrySet()) {
+
+				// if Letter in Array[number in index] is equal to the key of scrabId
+				if (newWord[i] == letter.getKey()) {
+				// give the result, which is 0 plus the value of the key
+					result = result + letter.getValue();
+
+				}
+
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -152,8 +240,44 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		char[] str = string.toCharArray();
+		new ArrayList<>(Arrays.asList(str));
+
+		ArrayList<Character> phoneNumber = new ArrayList<Character>();
+		phoneNumber.add('0');
+		phoneNumber.add('1');
+		phoneNumber.add('2');
+		phoneNumber.add('3');
+		phoneNumber.add('4');
+		phoneNumber.add('5');
+		phoneNumber.add('6');
+		phoneNumber.add('7');
+		phoneNumber.add('8');
+		phoneNumber.add('9');
+
+		ArrayList<Character> characters = new ArrayList<>(
+				Arrays.asList(' ', '@', '!', '-', '.', ':', '(', ')', 'a', 'b', 'c', '+'));
+		//ArrayList<Character> finalNumber = new ArrayList<>();
+		StringBuilder sb = new StringBuilder();
+		for (char ch : str) {
+
+			for (char a : phoneNumber) {
+
+				if (a == ch) {
+
+				 sb.append(ch);
+				}
+			}
+			/*for (char b : characters) {
+				if (b == ch) {
+				
+					
+				}
+			*/
+			}
+		
+		return sb.toString();
 	}
 
 	/**
@@ -166,7 +290,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+
+		//Map.Entry<"word", 1>;
+		//Whatever. I think a HashMap makes the most sense to me. Oopsie, I guess.
+		//So what we need to do is get the string to check the HashMap and display
+		//what was just written.
+		
+		HashMap<String, Integer> wordId = new HashMap<>();
+		wordId.put("one", 1);
+		wordId.put("two", 1);
+		wordId.put("three", 1);
+		wordId.put("of", 1);
+		wordId.put("each", 1);
+		wordId.put("fish", 1);
+		wordId.put("red", 1);
+		wordId.put("blue", 1);
+		wordId.put("word", 1);
+		
+		
+		//for Each     <String, Integer>       in  		<wordId>
+		for (Map.Entry<String, Integer> wordCheck : wordId.entrySet()) {
+			if (string == wordCheck.getKey()) {
+				wordCheck.getKey();
+			}
+		//I need to return the key as a Map<String,Integer>.
+		}	
+		// I have to return a Map<String,Integer>. 
 		return null;
 	}
 
@@ -246,8 +395,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		StringBuilder sb = new StringBuilder(string);
+		sb.append(string);
+		String ay = "ay";
+		
+		//String newString = string.concat(ay);
+		
+		/*for(int i = 0; i < sb.charAt(i); i++) {
+			
+			if (string.startsWith("th")) {
+				
+				string = "erapythay";
+			}
+		
+		} */
+			
+		
+		//sb.deleteCharAt(0);
+		
+		/*if (string.startsWith("th")) {
+			string.concat("th").concat(ay);
+		*/	
+		
+		//so I got the ay working. But now what? Hmm...
+		//what else can StringBuilder do? Maybe I can keep using it...
+		
+		return string.concat(ay);
 	}
 
 	/**
@@ -266,8 +439,31 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+	//I'm not sure what to do. What am I supposed to do?
+	//I don't know what to do. :[
+	//I'm stuck. So what am I supposed to do?
+	
+		ArrayList<Integer> armStrong = new ArrayList<>();
+		boolean output = true;
+		
+		armStrong.add(input);
+		
+		int result = 0;
+		
+		for (int i = 0; i < armStrong.size(); i++) { 
+		
+			result = armStrong.get(i)*armStrong.size();
+			
+			}		
+		if (input == result) {
+		return output = true;
+		}
+		else if(input != result) {
+		
+		return output = false;
+		}
+		return output;
+	
 	}
 
 	/**
@@ -433,7 +629,8 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+		char[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+		
 		return false;
 	}
 
@@ -446,8 +643,10 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		LocalDate ld = (LocalDate) given;
+		LocalDateTime ldt = LocalDateTime.of((LocalDate) given, LocalTime.of(0, 0, 0));
+		ldt = ldt.plusSeconds(1000000000);		
+		return ldt;
 	}
 
 	/**
